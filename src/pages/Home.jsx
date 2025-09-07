@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Dumbbell, ArrowUpCircle, ArrowDownCircle, Circle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { quotes } from "../quotes";
+import gymVideo from "../assets/gym-video.mp4";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -17,39 +18,48 @@ export default function Home() {
     workoutRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
+  const videoSrc = `${gymVideo}?v=${Date.now()}`;
+
   return (
     <div className="relative min-h-screen flex flex-col justify-between bg-black">
-      {/* Hero Section */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-cover"
-        >
-          <source src="/assets/gym-video.mp4" type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-black bg-opacity-60" />
-      </div>
-      <section className="flex flex-col items-center justify-center h-screen text-center text-white">
-        <motion.h1
-          initial={{ opacity: 0, y: 60 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.5 }}
-          className="text-4xl md:text-6xl font-extrabold mb-6 drop-shadow-lg"
-        >
-          <span className="bg-gradient-to-r from-pink-500 via-yellow-400 to-blue-500 bg-clip-text text-transparent animate-pulse">
-            Push · Pull · Legs – The Ultimate Split
-          </span>
-        </motion.h1>
-        <motion.button
-          whileHover={{ scale: 1.1, boxShadow: "0 0 24px #f472b6, 0 0 48px #3b82f6" }}
-          className="mt-8 px-8 py-4 text-lg font-bold rounded-full bg-gradient-to-r from-pink-500 via-yellow-400 to-blue-500 text-white shadow-lg ring-2 ring-pink-400 focus:outline-none focus:ring-4 focus:ring-blue-500 transition-all"
-          onClick={handleStart}
-        >
-          Start Workout
-        </motion.button>
+      {/* Hero Section with Video Background */}
+      <section className="relative flex flex-col items-center justify-center h-screen text-center text-white overflow-hidden">
+        {/* Video Background - Only for Hero Section */}
+        <div className="absolute inset-0 z-0">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            className="w-full h-full object-cover"
+            onCanPlay={(e) => { try { e.currentTarget.play(); } catch (_) {} }}
+          >
+            <source src={videoSrc} type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-black bg-opacity-30 pointer-events-none" />
+        </div>
+        
+        {/* Hero Content */}
+        <div className="relative z-10 px-4 sm:px-6 lg:px-8">
+          <motion.h1
+            initial={{ opacity: 0, y: 60 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.5 }}
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 drop-shadow-lg"
+          >
+            <span className="bg-gradient-to-r from-pink-500 via-yellow-400 to-blue-500 bg-clip-text text-transparent animate-pulse">
+              Push · Pull · Legs – The Ultimate Split
+            </span>
+          </motion.h1>
+          <motion.button
+            whileHover={{ scale: 1.1, boxShadow: "0 0 24px #f472b6, 0 0 48px #3b82f6" }}
+            className="mt-6 sm:mt-8 px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-bold rounded-full bg-gradient-to-r from-pink-500 via-yellow-400 to-blue-500 text-white shadow-lg ring-2 ring-pink-400 focus:outline-none focus:ring-4 focus:ring-blue-500 transition-all"
+            onClick={handleStart}
+          >
+            Start Workout
+          </motion.button>
+        </div>
       </section>
 
       {/* Workout Selection Section */}

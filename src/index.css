@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Global smooth scrolling and offset for fixed header */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem; /* match navbar height (~80px) */
+}
+
+/* Optional: nicer momentum scrolling on touch devices */
+body {
+  -webkit-overflow-scrolling: touch;
+}

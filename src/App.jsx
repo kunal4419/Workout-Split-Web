@@ -57,10 +57,12 @@ export default function App() {
     <div className="min-h-screen bg-white dark:bg-gray-900 text-black dark:text-white">
       <Router>
         <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
-        <main className="pt-20 pb-16">
-          <AnimatedRoutes />
-        </main>
-        <Footer />
+        <div className="flex flex-col min-h-screen">
+          <main className="flex-1 pt-20">
+            <AnimatedRoutes />
+          </main>
+          <Footer />
+        </div>
       </Router>
     </div>
   );
